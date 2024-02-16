@@ -1,0 +1,58 @@
+{% extends 'generic/object.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Certificate List</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ object.name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">URL</th>
+              <td>{{ object.url }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Certificate</th>
+              <td>{{ cert.subject }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Not Before</th>
+              <td>{{ cert.not_before | date:"Y-m-j H:i:s" }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Not After</th>
+              <td>{{ cert.not_after | date:"Y-m-j H:i:s" }}</td>
+            </tr>
+            <tr>
+              <th scope="row">File</th>
+              {% if object.cert.url is not none %}
+                <td><a href="{{ object.cert.url }}">Certificate file</a></td>
+              {% else %}
+                <td></td>
+              {% endif %}
+            </tr>
+            <tr>
+              <th scope="row">Device</th>
+              <td>{{ object.Device }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Alert</th>
+              <td>{{ object.alert }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+
+{% endblock content %}
